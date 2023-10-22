@@ -1,0 +1,47 @@
+const curriculoService = require("../services/curriculoService")
+
+exports.postCurriculo = (req, res, next) => {
+    const curriculo = req.body;
+    if (!curriculo.nome || !curriculo.idade || !curriculo.email || !curriculo.telefone || !curriculo.informacoes) {
+        res.status(400).send('Erro: preencha todos os campos obrigatorios (nome, idade, email, telefone, informacoes)');
+        return;
+    }
+    curriculoService.insertCurriculo(curriculo)
+    res.status(201).send('Curriculo criado com sucesso!');
+};
+
+exports.getCurriculos = (req, res, next) => {
+    curriculoService.getCurriculos().then(function(result){
+        res.json(result);
+    });
+};
+
+exports.getCurriculo = (req, res, next) => {
+    let id = req.params.id;
+    curriculoService.getCurriculo(id).then(function(result){
+        res.json(result);
+    });
+};
+
+exports.putCurriculo = (req, res, next) => {
+    let id = req.params.id;
+    const curriculo = req.body;
+    if (!id || !curriculo.nome || !curriculo.idade || !curriculo.email || !curriculo.telefone || !curriculo.informacoes) {
+        res.status(400).send('Erro: preencha todos os campos obrigatorios (nome, idade, email, telefone, informacoes)');
+        return;
+    }
+    curriculoService.updateCurriculo(id, curriculo).then(function(result){
+        const atualizado = result.rowCount
+        const sucesso = atualizado == 1
+        res.json({"sucesso": sucesso, atualizados: atualizado});
+    });
+};
+
+exports.deleteCurriculo = (req, res, next) => {
+    let id = req.params.id;
+    curriculoService.deleteCurriculo(id).then(function(result){
+        const deletado = result.rowCount
+        const sucesso = deletado == 1
+        res.json({"sucesso": sucesso, removidos: deletado});
+    });
+};
