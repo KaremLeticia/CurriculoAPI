@@ -2,42 +2,27 @@ require("dotenv").config();
 const db = require("../db");
 
 async function insertCurriculo(curriculo){
-    const result = {indisponivel: true};
-    try {
-        const result = await db.insertCurriculo(curriculo);
-    } catch (e) {}
+    const result = await db.insertCurriculo(curriculo);
     return result
 }
 
 async function getCurriculos(){
-    const result = {indisponivel: true};
-    try {
-        const result = await db.selectCurriculos();
-    } catch (e) {}
+    const result = await db.selectCurriculos();
     return result
 }
 
 async function getCurriculo(id){
-    const result = {indisponivel: true};
-    try {
-        result = await db.selectCurriculo(id);
-    } catch (e) {}
+    result = await db.selectCurriculo(id);
     return result
 }
 
 async function updateCurriculo(id, curriculo){
-    const result = {indisponivel: true};
-    try {
-        const result = await db.updateCurriculo(id, curriculo);
-    } catch (e) {}
+    const result = await db.updateCurriculo(id, curriculo);
     return result
 }
 
 async function deleteCurriculo(id){
-    const result = {indisponivel: true};
-    try {
-        const result = await db.deleteCurriculo(id);
-    } catch (e) {}
+    const result = await db.deleteCurriculo(id);
     return result
 }
 

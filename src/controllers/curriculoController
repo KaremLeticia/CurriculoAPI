@@ -6,8 +6,11 @@ exports.postCurriculo = (req, res, next) => {
         res.status(400).send('Erro: preencha todos os campos obrigatorios (nome, idade, email, telefone, informacoes)');
         return;
     }
-    curriculoService.insertCurriculo(curriculo)
-    res.status(201).send('Curriculo criado com sucesso!');
+    curriculoService.insertCurriculo(curriculo).then(function(result){
+        const criado = result.rowCount
+        const sucesso = criado == 1
+        res.json({"sucesso": sucesso, criado: criado});
+    });
 };
 
 exports.getCurriculos = (req, res, next) => {
